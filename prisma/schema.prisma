@@ -27,5 +27,33 @@ model User {
   avatar    String
   email     String @unique
   googleId  String @map("google_id")
-  role      Role
+  role      Role   @default(READER)
+
+  @@map("users")
+}
+
+model Book {
+  id            Int       @id @default(autoincrement())
+  title         String
+  description   String
+  author        String
+  image         String
+  category      String
+  publishedYear Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  isBorrowed    Boolean   @default(false)
+  returnDate    DateTime?
+
+  loanHistory LoanHistory[]
+
+  @@map("books")
+}
+
+model LoanHistory {
+  id         Int       @id @default(autoincrement())
+  bookId     Int
+  book       Book      @relation(fields: [bookId], references: [id])
+  borrowedIn DateTime
+  returnedIn DateTime?
 }
