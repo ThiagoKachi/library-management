@@ -4,7 +4,8 @@ import { GetBookByIdUseCase } from '../../application/useCases/GetBookByIdUseCas
 import { ListBooksUseCase } from '../../application/useCases/ListBooksUseCase';
 import { UpdateBookUseCase } from '../../application/useCases/UpdateBookUseCase';
 import { handleErrors } from '../errors/handleErrors';
-import { IBookController, IRequest, IResponse } from '../interfaces/IBookController';
+import { IBookController } from '../interfaces/IBookController';
+import { IRequest, IResponse } from '../interfaces/IController';
 import { createBookSchema, updateBookSchema } from '../validation/bookSchemas';
 
 export class BooksController implements IBookController {
@@ -53,9 +54,7 @@ export class BooksController implements IBookController {
 
       return {
         statusCode: 200,
-        body: {
-          book,
-        },
+        body: book,
       };
     } catch (error) {
       return handleErrors(error);
@@ -73,9 +72,7 @@ export class BooksController implements IBookController {
 
       return {
         statusCode: 200,
-        body: {
-          book,
-        },
+        body: book,
       };
     } catch (error) {
       return handleErrors(error);

@@ -4,13 +4,12 @@
 
 ### 1. Cadastro de Livros
 
-- **CRUD de Livros**: Permita que os administradores adicionem, editem, visualizem e excluam livros.
-  - Leitores: Visualizar
+- **CRUD de Livros**: Permita que os administradores adicionem, editem, visualizem e excluam livros. ✅
 - **Upload de Capas de Livros**: Utilize o Multer para permitir o upload de imagens das capas dos livros.
 
 ### 2. Cadastro de Autores
 
-- **CRUD de Autores**: Permita que os administradores gerenciem os autores dos livros.
+- **CRUD de Autores**: Permita que os administradores gerenciem os autores dos livros. ✅
 
 ### 3. Gerenciamento de Categorias
 
@@ -23,8 +22,8 @@
 
 ### 5. Autenticação e Autorização
 
-- **Cadastro e Login de Usuários**: Implemente o registro e login de usuários utilizando JWT.
-- **Papéis de Usuário**: Diferencie entre administradores e usuários regulares, com permissões distintas.
+- **Cadastro e Login de Usuários**: Implemente o registro e login de usuários utilizando OAuth2. ✅
+- **Papéis de Usuário**: Diferencie entre administradores e usuários regulares, com permissões distintas. ✅
 
 ### 6. Sistema de Notificações
 

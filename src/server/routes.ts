@@ -1,9 +1,11 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import { GoogleSignInController } from '../application/controllers/GoogleSignInController';
+import { makeAuthorsController } from '../application/factories/makeAuthorsController';
 import { makeBooksController } from '../application/factories/makeBooksController';
-import { IRequest } from '../application/interfaces/IBookController';
+import { makeCategoriesController } from '../application/factories/makeCategoriesController';
 import { authMiddleware } from '../application/middlewares/authMiddleware';
 import { authorizationMiddleware } from '../application/middlewares/authorizationMiddleware';
+import { routeAdapter } from '../server/adapters/routeAdapter';
 
 export async function publicRoutes(fastify: FastifyInstance) {
   fastify.post('/auth/google', GoogleSignInController.handle);
@@ -12,30 +14,35 @@ export async function publicRoutes(fastify: FastifyInstance) {
 export async function privateRoutes(fastify: FastifyInstance) {
   fastify.addHook('onRequest', authMiddleware);
 
-  fastify.get('/books',
-    async () => await makeBooksController().getAllBooks(),
-  );
-  fastify.get('/books/:id',
-    async (request: FastifyRequest) =>
-      await makeBooksController().getBookById(request as IRequest),
-  );
+  // BOOKS
+  fastify.get('/books', routeAdapter(makeBooksController(), 'getAllBooks'));
+  fastify.get('/books/:id', routeAdapter(makeBooksController(), 'getBookById'));
+
+  // AUTHORS
+  fastify.get('/authors', routeAdapter(makeAuthorsController(), 'getAllAuthors'));
+  fastify.get('/authors/:name', routeAdapter(makeAuthorsController(), 'getAuthorByName'));
+
+  // CATEGORIES
+  fastify.get('/categories', routeAdapter(makeCategoriesController(), 'getAllCategories'));
+  fastify.get('/categories/:id', routeAdapter(makeCategoriesController(), 'getCategoryById'));
 }
 
 export async function privateAdminRoutes(fastify: FastifyInstance) {
   fastify.addHook('onRequest', authMiddleware);
   fastify.addHook('onRequest', authorizationMiddleware);
 
-  fastify.post('/books',
-    async (request: FastifyRequest) => await makeBooksController().create(request as IRequest),
-  );
+  // BOOKS
+  fastify.post('/books', routeAdapter(makeBooksController(), 'create'));
+  fastify.put('/books/:id', routeAdapter(makeBooksController(), 'update'));
+  fastify.delete('/books/:id', routeAdapter(makeBooksController(), 'deleteBook'));
 
-  fastify.put('/books/:id',
-    async (request: FastifyRequest) => await makeBooksController().update(request as IRequest),
-  );
+  // AUTHORS
+  fastify.post('/authors', routeAdapter(makeAuthorsController(), 'create'));
+  fastify.put('/authors/:id', routeAdapter(makeAuthorsController(), 'update'));
+  fastify.delete('/authors/:id', routeAdapter(makeAuthorsController(), 'deleteAuthor'));
 
-  fastify.delete('/books/:id',
-    async (request: FastifyRequest) => {
-      await makeBooksController().deleteBook(request as IRequest);
-    }
-  );
+  // CATEGORIES
+  fastify.post('/categories', routeAdapter(makeCategoriesController(), 'create'));
+  fastify.put('/categories/:id', routeAdapter(makeCategoriesController(), 'update'));
+  fastify.delete('/categories/:id', routeAdapter(makeCategoriesController(), 'deleteCategory'));
 }
