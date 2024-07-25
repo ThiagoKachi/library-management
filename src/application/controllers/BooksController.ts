@@ -17,9 +17,16 @@ export class BooksController implements IBookController {
     private readonly updateBookUseCase: UpdateBookUseCase,
   ) {}
 
-  async getAllBooks(): Promise<IResponse> {
+  async getAllBooks({ query }: IRequest): Promise<IResponse> {
     try {
-      const books = await this.listBooksUseCase.execute();
+      const { title, author, category, isAvailable } = query;
+
+      const books = await this.listBooksUseCase.execute({
+        title,
+        author,
+        category,
+        isAvailable,
+      });
 
       return {
         statusCode: 200,
@@ -53,7 +60,7 @@ export class BooksController implements IBookController {
       });
 
       return {
-        statusCode: 200,
+        statusCode: 201,
         body: book,
       };
     } catch (error) {

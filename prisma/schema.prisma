@@ -29,6 +29,8 @@ model User {
   googleId  String @map("google_id")
   role      Role   @default(READER)
 
+  loanHistory LoanHistory[]
+
   @@map("users")
 }
 
@@ -58,8 +60,12 @@ model LoanHistory {
   id         Int       @id @default(autoincrement())
   bookId     Int
   book       Book      @relation(fields: [bookId], references: [id])
-  borrowedIn DateTime
+  userId     String    @db.Uuid
+  user       User      @relation(fields: [userId], references: [id])
+  borrowedIn DateTime  @default(now())
   returnedIn DateTime?
+
+  @@unique([id, userId])
 }
 
 model Author {

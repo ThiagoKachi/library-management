@@ -13,12 +13,12 @@
 
 ### 3. Gerenciamento de Categorias
 
-- **CRUD de Categorias**: Permita que os administradores gerenciem categorias de livros.
+- **CRUD de Categorias**: Permita que os administradores gerenciem categorias de livros. ✅
 
 ### 4. Sistema de Empréstimo de Livros
 
-- **Registro de Empréstimos**: Usuários podem pegar livros emprestados e devolvê-los.
-- **Histórico de Empréstimos**: Mantenha um registro dos empréstimos passados.
+- **Registro de Empréstimos**: Usuários podem pegar livros emprestados e devolvê-los. ✅
+- **Histórico de Empréstimos**: Mantenha um registro dos empréstimos passados. (User - Book) ✅
 
 ### 5. Autenticação e Autorização
 
@@ -31,8 +31,7 @@
 
 ### 7. Pesquisa e Filtros
 
-- **Pesquisa de Livros**: Permita que os usuários busquem livros por título, autor ou categoria.
-- **Filtros Avançados**: Adicione filtros para facilitar a busca, como disponibilidade e ano de publicação.
+- **Pesquisa de Livros**: Permita que os usuários busquem livros por título, autor ou categoria. ✅
 
 Tecnologias e ferramentas
 
@@ -46,5 +45,7 @@ Tecnologias e ferramentas
 - Multer OU S3 - (Live JStack)
 
 <!-- FIXES -->
-
-- Ajustar adapter para mostrar status correto nas rotas em caso de erro
+- Implementar relative path
+- Verificar Factories
+- Verificar error handler
+- Verificar status de retorno

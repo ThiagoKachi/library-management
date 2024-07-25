@@ -50,7 +50,7 @@ export class CategoriesController implements ICategoryController {
       const category = await this.createCategoryUseCase.execute(data);
 
       return {
-        statusCode: 200,
+        statusCode: 201,
         body: category,
       };
     } catch (error) {

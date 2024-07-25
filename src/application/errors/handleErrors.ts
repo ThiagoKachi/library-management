@@ -3,7 +3,9 @@ import { BookNotExists } from '../errors/BookNotExists';
 import { InvalidCredentials } from '../errors/InvalidCredentials';
 import { IResponse } from '../interfaces/IController';
 import { AuthorNotExists } from './AuthorNotExists';
+import { BookNotAvailable } from './BookNotAvailable';
 import { CategoryNotExists } from './CategoryNotExists';
+import { ReservationNotExists } from './ReservationNotExists';
 
 export const handleErrors = (error: unknown): IResponse => {
   if (error instanceof ZodError) {
@@ -36,6 +38,24 @@ export const handleErrors = (error: unknown): IResponse => {
       statusCode: 404,
       body: {
         error: 'Author not exists.',
+      },
+    };
+  }
+
+  if (error instanceof ReservationNotExists) {
+    return {
+      statusCode: 404,
+      body: {
+        error: 'Reservation not exists.',
+      },
+    };
+  }
+
+  if (error instanceof BookNotAvailable) {
+    return {
+      statusCode: 404,
+      body: {
+        error: 'Book not available.',
       },
     };
   }

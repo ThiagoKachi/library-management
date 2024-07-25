@@ -21,24 +21,28 @@ interface IOutput {
 
 export class UpdateBookUseCase {
   async execute(id: string, data: IInput): Promise<IOutput> {
-    const author = await prismaClient.author.findUnique({
-      where: {
-        id: data.authorId
-      }
-    });
+    if (data.authorId) {
+      const author = await prismaClient.author.findUnique({
+        where: {
+          id: data.authorId
+        }
+      });
 
-    if (!author) {
-      throw new AuthorNotExists();
+      if (!author) {
+        throw new AuthorNotExists();
+      }
     }
 
-    const category = await prismaClient.category.findUnique({
-      where: {
-        id: data.categoryId
-      }
-    });
+    if (data.categoryId) {
+      const category = await prismaClient.category.findUnique({
+        where: {
+          id: data.categoryId
+        }
+      });
 
-    if (!category) {
-      throw new CategoryNotExists();
+      if (!category) {
+        throw new CategoryNotExists();
+      }
     }
 
     const book = await prismaClient.book.update({

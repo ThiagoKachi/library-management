@@ -50,7 +50,7 @@ export class AuthorsController implements IAuthorController {
       const author = await this.createAuthorUseCase.execute(data);
 
       return {
-        statusCode: 200,
+        statusCode: 201,
         body: author,
       };
     } catch (error) {

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "LoanHistory" ALTER COLUMN "borrowedIn" SET DEFAULT CURRENT_TIMESTAMP;
