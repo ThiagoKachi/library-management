@@ -1,22 +1,22 @@
+import { CreateBookUseCase } from '@application/useCases/CreateBookUseCase';
+import { DeleteBookUseCase } from '@application/useCases/DeleteBookUseCase';
+import { GetBookByIdUseCase } from '@application/useCases/GetBookByIdUseCase';
+import { ListBooksUseCase } from '@application/useCases/ListBooksUseCase';
+import { UpdateBookUseCase } from '@application/useCases/UpdateBookUseCase';
 import { BooksController } from '../controllers/BooksController';
-import { makeCreateBookUseCase } from './makeCreateBookUseCase';
-import { makeDeleteBookUseCase } from './makeDeleteBookUseCase';
-import { makeGetBookByIdUseCase } from './makeGetBookByIdUseCase';
-import { makeListBooksUseCase } from './makeListBooksUseCase';
-import { makeUpdateBookUseCase } from './makeUpdateBookUseCase';
 
 export function makeBooksController() {
-  const createBookUseCase = makeCreateBookUseCase();
-  const listBooksUseCase = makeListBooksUseCase();
-  const getBookByIdUseCase = makeGetBookByIdUseCase();
-  const deleteBookUseCase = makeDeleteBookUseCase();
-  const updateBookUseCase = makeUpdateBookUseCase();
+  const createBookUseCase = new CreateBookUseCase();
+  const listBooksUseCase = new ListBooksUseCase();
+  const getBookByIdUseCase = new GetBookByIdUseCase();
+  const deleteBookUseCase = new DeleteBookUseCase();
+  const updateBookUseCase = new UpdateBookUseCase();
 
   return new BooksController(
     createBookUseCase,
     listBooksUseCase,
     getBookByIdUseCase,
     deleteBookUseCase,
-    updateBookUseCase
+    updateBookUseCase,
   );
 }

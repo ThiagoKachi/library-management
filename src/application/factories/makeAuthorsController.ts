@@ -1,16 +1,16 @@
+import { CreateAuthorUseCase } from '@application/useCases/CreateAuthorUseCase';
+import { DeleteAuthorUseCase } from '@application/useCases/DeleteAuthorUseCase';
+import { GetAuthorByNameUseCase } from '@application/useCases/GetAuthorByNameUseCase';
+import { ListAuthorsUseCase } from '@application/useCases/ListAuthorsUseCase';
+import { UpdateAuthorUseCase } from '@application/useCases/UpdateAuthorUseCase';
 import { AuthorsController } from '../controllers/AuthorsController';
-import { makeCreateAuthorUseCase } from './makeCreateAuthorUseCase';
-import { makeDeleteAuthorUseCase } from './makeDeleteAuthorUseCase';
-import { makeGetAuthorByNameUseCase } from './makeGetAuthorByNameUseCase';
-import { makeListAuthorsUseCase } from './makeListAuthorsUseCase';
-import { makeUpdateAuthorUseCase } from './makeUpdateAuthorUseCase';
 
 export function makeAuthorsController() {
-  const createAuthorUseCase = makeCreateAuthorUseCase();
-  const listAuthorsUseCase = makeListAuthorsUseCase();
-  const getAuthorByNameUseCase = makeGetAuthorByNameUseCase();
-  const deleteAuthorUseCase = makeDeleteAuthorUseCase();
-  const updateAuthorUseCase = makeUpdateAuthorUseCase();
+  const createAuthorUseCase = new CreateAuthorUseCase();
+  const listAuthorsUseCase = new ListAuthorsUseCase();
+  const getAuthorByNameUseCase = new GetAuthorByNameUseCase();
+  const deleteAuthorUseCase = new DeleteAuthorUseCase();
+  const updateAuthorUseCase = new UpdateAuthorUseCase();
 
   return new AuthorsController(
     createAuthorUseCase,

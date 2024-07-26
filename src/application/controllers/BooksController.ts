@@ -1,8 +1,8 @@
-import { CreateBookUseCase } from '../../application/useCases/CreateBookUseCase';
-import { DeleteBookUseCase } from '../../application/useCases/DeleteBookUseCase';
-import { GetBookByIdUseCase } from '../../application/useCases/GetBookByIdUseCase';
-import { ListBooksUseCase } from '../../application/useCases/ListBooksUseCase';
-import { UpdateBookUseCase } from '../../application/useCases/UpdateBookUseCase';
+import { CreateBookUseCase } from '@application/useCases/CreateBookUseCase';
+import { DeleteBookUseCase } from '@application/useCases/DeleteBookUseCase';
+import { GetBookByIdUseCase } from '@application/useCases/GetBookByIdUseCase';
+import { ListBooksUseCase } from '@application/useCases/ListBooksUseCase';
+import { UpdateBookUseCase } from '@application/useCases/UpdateBookUseCase';
 import { handleErrors } from '../errors/handleErrors';
 import { IBookController } from '../interfaces/IBookController';
 import { IRequest, IResponse } from '../interfaces/IController';

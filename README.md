@@ -27,7 +27,8 @@
 
 ### 6. Sistema de Notificações
 
-- **Notificações por Email**: Notifique usuários sobre prazos de devolução e novas adições à biblioteca utilizando Nodemailer.
+- **Notificações por Email**: Notifique usuários sobre prazos de devolução e novas adições à biblioteca utilizando Nodemailer. ✅
+- Rotina de notificação com node-cron
 
 ### 7. Pesquisa e Filtros
 
@@ -45,7 +46,3 @@ Tecnologias e ferramentas
 - Multer OU S3 - (Live JStack)
 
 <!-- FIXES -->
-- Implementar relative path
-- Verificar Factories
-- Verificar error handler
-- Verificar status de retorno

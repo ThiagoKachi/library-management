@@ -1,19 +1,22 @@
+import { CreateReservationUseCase } from '@application/useCases/CreateReservationUseCase';
+import { ListReservationsUseCase } from '@application/useCases/ListReservationsUseCase';
+import { SendEmailUseCase } from '@application/useCases/SendEmailUseCase';
+import { UpdateReservationStatusUseCase } from '@application/useCases/UpdateReservationStatusUseCase';
+import { UpdateReservationUseCase } from '@application/useCases/UpdateReservationUseCase';
 import { ReservationsController } from '../controllers/ReservationsController';
-import { makeCreateReservationUseCase } from './makeCreateReservationUseCase';
-import { makeListReservationsUseCase } from './makeListReservationsUseCase';
-import { makeUpdateReservationStatusUseCase } from './makeUpdateReservationStatusUseCase';
-import { makeUpdateReservationUseCase } from './makeUpdateReservationUseCase';
 
 export function makeReservationsController() {
-  const createReservationUseCase = makeCreateReservationUseCase();
-  const listReservationsUseCase = makeListReservationsUseCase();
-  const updateReservationUseCase = makeUpdateReservationUseCase();
-  const updateReservationStatusUseCase = makeUpdateReservationStatusUseCase();
+  const createReservationUseCase = new CreateReservationUseCase();
+  const listReservationsUseCase = new ListReservationsUseCase();
+  const updateReservationUseCase = new UpdateReservationUseCase();
+  const updateReservationStatusUseCase = new UpdateReservationStatusUseCase();
+  const sendEmailUseCase = new SendEmailUseCase();
 
   return new ReservationsController(
     createReservationUseCase,
     listReservationsUseCase,
     updateReservationUseCase,
-    updateReservationStatusUseCase
+    updateReservationStatusUseCase,
+    sendEmailUseCase
   );
 }

@@ -1,7 +1,8 @@
-import { CreateReservationUseCase } from '../../application/useCases/CreateReservationUseCase';
-import { ListReservationsUseCase } from '../../application/useCases/ListReservationsUseCase';
-import { UpdateReservationStatusUseCase } from '../../application/useCases/UpdateReservationStatusUseCase';
-import { UpdateReservationUseCase } from '../../application/useCases/UpdateReservationUseCase';
+import { CreateReservationUseCase } from '@application/useCases/CreateReservationUseCase';
+import { ListReservationsUseCase } from '@application/useCases/ListReservationsUseCase';
+import { SendEmailUseCase } from '@application/useCases/SendEmailUseCase';
+import { UpdateReservationStatusUseCase } from '@application/useCases/UpdateReservationStatusUseCase';
+import { UpdateReservationUseCase } from '@application/useCases/UpdateReservationUseCase';
 import { handleErrors } from '../errors/handleErrors';
 import { IRequest, IResponse } from '../interfaces/IController';
 import { IReservationController } from '../interfaces/IReservationController';
@@ -13,6 +14,7 @@ export class ReservationsController implements IReservationController {
     private readonly listReservationsUseCase: ListReservationsUseCase,
     private readonly updateReservationUseCase: UpdateReservationUseCase,
     private readonly updateReservationStatusUseCase: UpdateReservationStatusUseCase,
+    private readonly sendEmailUseCase: SendEmailUseCase
   ) {}
   async getAllReservations({ user }: IRequest): Promise<IResponse> {
     const userId = user.sub;
@@ -78,6 +80,19 @@ export class ReservationsController implements IReservationController {
       return {
         statusCode: 200,
         body: reservation,
+      };
+    } catch (erro) {
+      return handleErrors(erro);
+    }
+  }
+
+  async sendEmail({ user }: IRequest): Promise<IResponse> {
+    try {
+      await this.sendEmailUseCase.execute({ userId: user.sub });
+
+      return {
+        statusCode: 200,
+        body: null,
       };
     } catch (erro) {
       return handleErrors(erro);

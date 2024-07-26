@@ -6,6 +6,7 @@ import { AuthorNotExists } from './AuthorNotExists';
 import { BookNotAvailable } from './BookNotAvailable';
 import { CategoryNotExists } from './CategoryNotExists';
 import { ReservationNotExists } from './ReservationNotExists';
+import { UserNotExists } from './UserNotExists';
 
 export const handleErrors = (error: unknown): IResponse => {
   if (error instanceof ZodError) {
@@ -65,6 +66,15 @@ export const handleErrors = (error: unknown): IResponse => {
       statusCode: 404,
       body: {
         error: 'Category not exists.',
+      },
+    };
+  }
+
+  if (error instanceof UserNotExists) {
+    return {
+      statusCode: 404,
+      body: {
+        error: 'User not exists.',
       },
     };
   }

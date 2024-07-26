@@ -1,11 +1,11 @@
+import { GoogleSignInController } from '@application/controllers/GoogleSignInController';
+import { makeAuthorsController } from '@application/factories/makeAuthorsController';
+import { makeBooksController } from '@application/factories/makeBooksController';
+import { makeCategoriesController } from '@application/factories/makeCategoriesController';
+import { makeReservationsController } from '@application/factories/makeReservationsController';
+import { authMiddleware } from '@application/middlewares/authMiddleware';
+import { authorizationMiddleware } from '@application/middlewares/authorizationMiddleware';
 import { FastifyInstance } from 'fastify';
-import { GoogleSignInController } from '../application/controllers/GoogleSignInController';
-import { makeAuthorsController } from '../application/factories/makeAuthorsController';
-import { makeBooksController } from '../application/factories/makeBooksController';
-import { makeCategoriesController } from '../application/factories/makeCategoriesController';
-import { makeReservationsController } from '../application/factories/makeReservationsController';
-import { authMiddleware } from '../application/middlewares/authMiddleware';
-import { authorizationMiddleware } from '../application/middlewares/authorizationMiddleware';
 import { routeAdapter } from '../server/adapters/routeAdapter';
 
 export async function publicRoutes(fastify: FastifyInstance) {
@@ -93,4 +93,5 @@ export async function privateAdminRoutes(fastify: FastifyInstance) {
     '/reservations/:id/status',
     routeAdapter(makeReservationsController(), 'updateReservationStatus')
   );
+  fastify.get('/reservations/email', routeAdapter(makeReservationsController(), 'sendEmail'));
 }

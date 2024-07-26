@@ -1,16 +1,16 @@
+import { CreateCategoryUseCase } from '@application/useCases/CreateCategoryUseCase';
+import { DeleteCategoryUseCase } from '@application/useCases/DeleteCategoryUseCase';
+import { GetCategoryByIdUseCase } from '@application/useCases/GetCategoryByIdUseCase';
+import { ListCategoriesUseCase } from '@application/useCases/ListCategoriesUseCase';
+import { UpdateCategoryUseCase } from '@application/useCases/UpdateCategoryUseCase';
 import { CategoriesController } from '../controllers/CategoriesController';
-import { makeCreateCategoryUseCase } from './makeCreateCategoryUseCase';
-import { makeDeleteCategoryUseCase } from './makeDeleteCategoryUseCase';
-import { makeGetCategoryByIdUseCase } from './makeGetCategoryByIdUseCase';
-import { makeListCategoriesUseCase } from './makeListCategoriesUseCase';
-import { makeUpdateCategoryUseCase } from './makeUpdateCategoryUseCase';
 
 export function makeCategoriesController() {
-  const createCategoryUseCase = makeCreateCategoryUseCase();
-  const listCategoriesUseCase = makeListCategoriesUseCase();
-  const getCategoryByIdUseCase = makeGetCategoryByIdUseCase();
-  const deleteCategoryUseCase = makeDeleteCategoryUseCase();
-  const updateCategoryUseCase = makeUpdateCategoryUseCase();
+  const createCategoryUseCase = new CreateCategoryUseCase();
+  const listCategoriesUseCase = new ListCategoriesUseCase();
+  const getCategoryByIdUseCase = new GetCategoryByIdUseCase();
+  const deleteCategoryUseCase = new DeleteCategoryUseCase();
+  const updateCategoryUseCase = new UpdateCategoryUseCase();
 
   return new CategoriesController(
     createCategoryUseCase,

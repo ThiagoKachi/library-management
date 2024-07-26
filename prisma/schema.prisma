@@ -57,13 +57,14 @@ model Book {
 }
 
 model LoanHistory {
-  id         Int       @id @default(autoincrement())
-  bookId     Int
-  book       Book      @relation(fields: [bookId], references: [id])
-  userId     String    @db.Uuid
-  user       User      @relation(fields: [userId], references: [id])
-  borrowedIn DateTime  @default(now())
-  returnedIn DateTime?
+  id             Int       @id @default(autoincrement())
+  bookId         Int
+  book           Book      @relation(fields: [bookId], references: [id])
+  userId         String    @db.Uuid
+  user           User      @relation(fields: [userId], references: [id])
+  borrowedIn     DateTime  @default(now())
+  returnedIn     DateTime?
+  returnedAtDate DateTime?
 
   @@unique([id, userId])
 }

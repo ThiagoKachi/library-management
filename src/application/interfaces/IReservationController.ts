@@ -5,4 +5,5 @@ export interface IReservationController {
   getAllReservations: (request: IRequest) => Promise<IResponse>;
   update: (request: IRequest) => Promise<IResponse>;
   updateReservationStatus: (request: IRequest) => Promise<IResponse>;
+  sendEmail: (request: IRequest) => Promise<IResponse>;
 }

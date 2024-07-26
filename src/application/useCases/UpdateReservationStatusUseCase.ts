@@ -23,6 +23,15 @@ export class UpdateReservationStatusUseCase {
       throw new ReservationNotExists();
     }
 
+    await prismaClient.loanHistory.update({
+      where: {
+        id: data.reservationId
+      },
+      data: {
+        returnedAtDate: new Date().toISOString()
+      }
+    });
+
     const book = await prismaClient.book.findUnique({
       where: {
         id: Number(data.bookId),

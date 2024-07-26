@@ -1,8 +1,8 @@
-import { CreateCategoryUseCase } from '../../application/useCases/CreateCategoryUseCase';
-import { DeleteCategoryUseCase } from '../../application/useCases/DeleteCategoryUseCase';
-import { GetCategoryByIdUseCase } from '../../application/useCases/GetCategoryByIdUseCase';
-import { ListCategoriesUseCase } from '../../application/useCases/ListCategoriesUseCase';
-import { UpdateCategoryUseCase } from '../../application/useCases/UpdateCategoryUseCase';
+import { CreateCategoryUseCase } from '@application/useCases/CreateCategoryUseCase';
+import { DeleteCategoryUseCase } from '@application/useCases/DeleteCategoryUseCase';
+import { GetCategoryByIdUseCase } from '@application/useCases/GetCategoryByIdUseCase';
+import { ListCategoriesUseCase } from '@application/useCases/ListCategoriesUseCase';
+import { UpdateCategoryUseCase } from '@application/useCases/UpdateCategoryUseCase';
 import { handleErrors } from '../errors/handleErrors';
 import { ICategoryController } from '../interfaces/ICategoryController';
 import { IRequest, IResponse } from '../interfaces/IController';

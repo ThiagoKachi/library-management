@@ -1,8 +1,8 @@
-import { CreateAuthorUseCase } from '../../application/useCases/CreateAuthorUseCase';
-import { DeleteAuthorUseCase } from '../../application/useCases/DeleteAuthorUseCase';
-import { GetAuthorByNameUseCase } from '../../application/useCases/GetAuthorByNameUseCase';
-import { ListAuthorsUseCase } from '../../application/useCases/ListAuthorsUseCase';
-import { UpdateAuthorUseCase } from '../../application/useCases/UpdateAuthorUseCase';
+import { CreateAuthorUseCase } from '@application/useCases/CreateAuthorUseCase';
+import { DeleteAuthorUseCase } from '@application/useCases/DeleteAuthorUseCase';
+import { GetAuthorByNameUseCase } from '@application/useCases/GetAuthorByNameUseCase';
+import { ListAuthorsUseCase } from '@application/useCases/ListAuthorsUseCase';
+import { UpdateAuthorUseCase } from '@application/useCases/UpdateAuthorUseCase';
 import { handleErrors } from '../errors/handleErrors';
 import { IAuthorController } from '../interfaces/IAuthorController';
 import { IRequest, IResponse } from '../interfaces/IController';
