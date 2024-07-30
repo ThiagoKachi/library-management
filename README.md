@@ -5,7 +5,7 @@
 ### 1. Cadastro de Livros
 
 - **CRUD de Livros**: Permita que os administradores adicionem, editem, visualizem e excluam livros. ✅
-- **Upload de Capas de Livros**: Utilize o Multer para permitir o upload de imagens das capas dos livros.
+- **Upload de Capas de Livros**: Upload de imagens para um bucket S3, leitura das imagens e possibilidade de deletar imagens.
 
 ### 2. Cadastro de Autores
 
@@ -28,7 +28,6 @@
 ### 6. Sistema de Notificações
 
 - **Notificações por Email**: Notifique usuários sobre prazos de devolução e novas adições à biblioteca utilizando Nodemailer. ✅
-- Rotina de notificação com node-cron
 
 ### 7. Pesquisa e Filtros
 
