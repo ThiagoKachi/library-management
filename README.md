@@ -5,7 +5,7 @@
 ### 1. Cadastro de Livros
 
 - **CRUD de Livros**: Permita que os administradores adicionem, editem, visualizem e excluam livros. ✅
-- **Upload de Capas de Livros**: Upload de imagens para um bucket S3, leitura das imagens e possibilidade de deletar imagens.
+- **Upload de Capas de Livros**: Upload de imagens para um bucket S3, leitura das imagens e possibilidade de deletar imagens. ✅
 
 ### 2. Cadastro de Autores
 

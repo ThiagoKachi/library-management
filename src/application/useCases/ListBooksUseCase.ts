@@ -1,3 +1,4 @@
+import { ImagesApis } from '@application/services/ImagesApi';
 import { Book } from '@prisma/client';
 import { prismaClient } from '../libs/prismaClient';
 
@@ -42,8 +43,20 @@ export class ListBooksUseCase {
       }
     });
 
+
+    const updatedBooksURLs = await Promise.all(
+      books.map(async (book) => {
+        const imageURL = await ImagesApis.getImageUrl(book.image);
+
+        return {
+          ...book,
+          image: imageURL
+        };
+      })
+    );
+
     return {
-      books,
+      books: updatedBooksURLs,
     };
   }
 }

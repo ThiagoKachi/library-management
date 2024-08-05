@@ -1,3 +1,4 @@
+import { ImagesApis } from '@application/services/ImagesApi';
 import { Book } from '@prisma/client';
 import { BookNotExists } from '../errors/BookNotExists';
 import { prismaClient } from '../libs/prismaClient';
@@ -18,8 +19,13 @@ export class GetBookByIdUseCase {
       throw new BookNotExists();
     }
 
+    const imageURL = await ImagesApis.getImageUrl(book.image);
+
     return {
-      book
+      book: {
+        ...book,
+        image: imageURL
+      }
     };
   }
 }
