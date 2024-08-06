@@ -9,3 +9,6 @@ services:
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=library_management
       - PGDATA=/data/postgres
+
+volumes:
+  pgdata:
