@@ -1,7 +1,5 @@
+import AppError from '@application/errors/AppError';
 import { Book } from '@prisma/client';
-import { AuthorNotExists } from '../errors/AuthorNotExists';
-import { BookNotExists } from '../errors/BookNotExists';
-import { CategoryNotExists } from '../errors/CategoryNotExists';
 import { prismaClient } from '../libs/prismaClient';
 
 interface IInput {
@@ -29,7 +27,7 @@ export class UpdateBookUseCase {
       });
 
       if (!author) {
-        throw new AuthorNotExists();
+        throw new AppError('Author not exists.', 404);
       }
     }
 
@@ -41,7 +39,7 @@ export class UpdateBookUseCase {
       });
 
       if (!category) {
-        throw new CategoryNotExists();
+        throw new AppError('Category not exists.', 404);
       }
     }
 
@@ -53,7 +51,7 @@ export class UpdateBookUseCase {
     });
 
     if (!book) {
-      throw new BookNotExists();
+      throw new AppError('Book not exists.', 404);
     }
 
     return {

@@ -1,5 +1,5 @@
+import AppError from '@application/errors/AppError';
 import { LoanHistory } from '@prisma/client';
-import { BookNotAvailable } from '../errors/BookNotAvailable';
 import { prismaClient } from '../libs/prismaClient';
 
 interface IInput {
@@ -21,7 +21,7 @@ export class CreateReservationUseCase {
     });
 
     if (!bookAvailable) {
-      throw new BookNotAvailable();
+      throw new AppError('Book not available.', 404);
     }
 
     await prismaClient.book.update({

@@ -1,5 +1,5 @@
+import AppError from '@application/errors/AppError';
 import { LoanHistory } from '@prisma/client';
-import { ReservationNotExists } from '../errors/ReservationNotExists';
 import { prismaClient } from '../libs/prismaClient';
 
 interface IInput {
@@ -23,7 +23,7 @@ export class UpdateReservationUseCase {
     });
 
     if (!reservation) {
-      throw new ReservationNotExists();
+      throw new AppError('Reservation not exists.', 404);
     }
 
     await prismaClient.loanHistory.update({

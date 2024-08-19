@@ -1,9 +1,10 @@
 import 'dotenv/config';
 
+import AppError from '@application/errors/AppError';
 import FastifyCORS from '@fastify/cors';
 import FastifyJWT from '@fastify/jwt';
-import Fastify from 'fastify';
-
+import { Prisma } from '@prisma/client';
+import Fastify, { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
 import { env } from './application/config/env';
 import { privateAdminRoutes, privateRoutes, publicRoutes } from './server/routes';
 
@@ -15,6 +16,29 @@ fastify.register(FastifyJWT, {
   sign: {
     expiresIn: '1d',
   },
+});
+
+fastify.setErrorHandler((err: FastifyError, request: FastifyRequest, reply: FastifyReply) => {
+  if (err instanceof AppError) {
+    reply.status(err.statusCode).send({
+      status: 'error',
+      message: err.message
+    });
+  }
+
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    return reply.status(404).send({
+      status: 'error',
+      message: `[${err.code}] - ${err.meta?.modelName} - ${err.meta?.cause}`,
+    });
+  }
+
+  reply.status(500).send({
+    status: 'error',
+    message: 'Internal server error'
+  });
+
+  return reply;
 });
 
 fastify.register(publicRoutes);

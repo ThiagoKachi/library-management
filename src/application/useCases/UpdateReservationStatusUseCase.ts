@@ -1,5 +1,4 @@
-import { BookNotExists } from '../errors/BookNotExists';
-import { ReservationNotExists } from '../errors/ReservationNotExists';
+import AppError from '@application/errors/AppError';
 import { prismaClient } from '../libs/prismaClient';
 
 interface IInput {
@@ -20,7 +19,7 @@ export class UpdateReservationStatusUseCase {
     });
 
     if (!reservation) {
-      throw new ReservationNotExists();
+      throw new AppError('Reservation not exists.', 404);
     }
 
     await prismaClient.loanHistory.update({
@@ -39,7 +38,7 @@ export class UpdateReservationStatusUseCase {
     });
 
     if (!book) {
-      throw new BookNotExists();
+      throw new AppError('Book not exists.', 404);
     }
 
     await prismaClient.book.update({

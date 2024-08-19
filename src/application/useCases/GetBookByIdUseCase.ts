@@ -1,6 +1,6 @@
+import AppError from '@application/errors/AppError';
 import { ImagesApis } from '@application/services/ImagesApi';
 import { Book } from '@prisma/client';
-import { BookNotExists } from '../errors/BookNotExists';
 import { prismaClient } from '../libs/prismaClient';
 
 interface IOutput {
@@ -16,7 +16,7 @@ export class GetBookByIdUseCase {
     });
 
     if (!book) {
-      throw new BookNotExists();
+      throw new AppError('Book not exists.', 404);
     }
 
     const imageURL = await ImagesApis.getImageUrl(book.image);

@@ -1,5 +1,5 @@
+import AppError from '@application/errors/AppError';
 import { Author } from '@prisma/client';
-import { AuthorNotExists } from '../errors/AuthorNotExists';
 import { prismaClient } from '../libs/prismaClient';
 
 interface IInput {
@@ -20,7 +20,7 @@ export class UpdateAuthorUseCase {
     });
 
     if (!author) {
-      throw new AuthorNotExists();
+      throw new AppError('Author not exists.', 404);
     }
 
     return {

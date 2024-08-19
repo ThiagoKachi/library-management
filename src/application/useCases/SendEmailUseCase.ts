@@ -1,4 +1,4 @@
-import { UserNotExists } from '@application/errors/UserNotExists';
+import AppError from '@application/errors/AppError';
 import { sendEmail } from '@application/services/emailService';
 import { isOneDayAway } from '@application/utils/isOneDayAway';
 import { prismaClient } from '../libs/prismaClient';
@@ -27,7 +27,7 @@ export class SendEmailUseCase {
     });
 
     if (!user) {
-      throw new UserNotExists();
+      throw new AppError('User not exists.', 404);
     }
 
     if (user.loanHistory.length === 0) {

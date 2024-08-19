@@ -1,6 +1,5 @@
+import AppError from '@application/errors/AppError';
 import { Book } from '@prisma/client';
-import { AuthorNotExists } from '../errors/AuthorNotExists';
-import { CategoryNotExists } from '../errors/CategoryNotExists';
 import { prismaClient } from '../libs/prismaClient';
 
 interface IInput {
@@ -27,7 +26,7 @@ export class CreateBookUseCase {
     });
 
     if (!author) {
-      throw new AuthorNotExists();
+      throw new AppError('Author not exists.', 404);
     }
 
     const category = await prismaClient.category.findUnique({
@@ -37,7 +36,7 @@ export class CreateBookUseCase {
     });
 
     if (!category) {
-      throw new CategoryNotExists();
+      throw new AppError('Category not exists.', 404);
     }
 
     const book = await prismaClient.book.create({

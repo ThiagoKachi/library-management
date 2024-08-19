@@ -3,7 +3,6 @@ import { DeleteBookUseCase } from '@application/useCases/DeleteBookUseCase';
 import { GetBookByIdUseCase } from '@application/useCases/GetBookByIdUseCase';
 import { ListBooksUseCase } from '@application/useCases/ListBooksUseCase';
 import { UpdateBookUseCase } from '@application/useCases/UpdateBookUseCase';
-import { handleErrors } from '../errors/handleErrors';
 import { IBookController } from '../interfaces/IBookController';
 import { IRequest, IResponse } from '../interfaces/IController';
 import { createBookSchema, updateBookSchema } from '../validation/bookSchemas';
@@ -18,84 +17,64 @@ export class BooksController implements IBookController {
   ) {}
 
   async getAllBooks({ query }: IRequest): Promise<IResponse> {
-    try {
-      const { title, author, category, isAvailable } = query;
+    const { title, author, category, isAvailable } = query;
 
-      const books = await this.listBooksUseCase.execute({
-        title,
-        author,
-        category,
-        isAvailable,
-      });
+    const books = await this.listBooksUseCase.execute({
+      title,
+      author,
+      category,
+      isAvailable,
+    });
 
-      return {
-        statusCode: 200,
-        body: books,
-      };
-    } catch (erro) {
-      return handleErrors(erro);
-    }
+    return {
+      statusCode: 200,
+      body: books,
+    };
   }
 
   async getBookById({ params: { id } }: IRequest): Promise<IResponse> {
-    try {
-      const book = await this.getBookByIdUseCase.execute(id);
+    const book = await this.getBookByIdUseCase.execute(id);
 
-      return {
-        statusCode: 200,
-        body: book,
-      };
-    } catch (erro) {
-      return handleErrors(erro);
-    }
+    return {
+      statusCode: 200,
+      body: book,
+    };
   }
 
   async create({ body }: IRequest): Promise<IResponse> {
-    try {
-      const data = createBookSchema.parse(body);
+    const data = createBookSchema.parse(body);
 
-      const book = await this.createBookUseCase.execute({
-        ...data,
-        returnDate: data.isBorrowed ? new Date() : undefined,
-      });
+    const book = await this.createBookUseCase.execute({
+      ...data,
+      returnDate: data.isBorrowed ? new Date() : undefined,
+    });
 
-      return {
-        statusCode: 201,
-        body: book,
-      };
-    } catch (error) {
-      return handleErrors(error);
-    }
+    return {
+      statusCode: 201,
+      body: book,
+    };
   }
 
   async update({ body, params: { id } }: IRequest): Promise<IResponse> {
-    try {
-      const data = updateBookSchema.parse(body);
+    const data = updateBookSchema.parse(body);
 
-      const book = await this.updateBookUseCase.execute(id, {
-        ...data,
-        returnDate: data.isBorrowed ? new Date() : undefined,
-      });
+    const book = await this.updateBookUseCase.execute(id, {
+      ...data,
+      returnDate: data.isBorrowed ? new Date() : undefined,
+    });
 
-      return {
-        statusCode: 200,
-        body: book,
-      };
-    } catch (error) {
-      return handleErrors(error);
-    }
+    return {
+      statusCode: 200,
+      body: book,
+    };
   }
 
   async deleteBook({ params: { id } }: IRequest): Promise<IResponse> {
-    try {
-      await this.deleteBookUseCase.execute(id);
+    await this.deleteBookUseCase.execute(id);
 
-      return {
-        statusCode: 204,
-        body: null,
-      };
-    } catch (erro) {
-      return handleErrors(erro);
-    }
+    return {
+      statusCode: 204,
+      body: null,
+    };
   }
 }

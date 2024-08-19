@@ -1,4 +1,4 @@
-import { CategoryNotExists } from '../errors/CategoryNotExists';
+import AppError from '@application/errors/AppError';
 import { prismaClient } from '../libs/prismaClient';
 
 export class DeleteCategoryUseCase {
@@ -10,7 +10,7 @@ export class DeleteCategoryUseCase {
     });
 
     if (!book) {
-      throw new CategoryNotExists();
+      throw new AppError('Category not exists.', 404);
     }
   }
 }

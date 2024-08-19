@@ -1,4 +1,4 @@
-import { AuthorNotExists } from '../errors/AuthorNotExists';
+import AppError from '@application/errors/AppError';
 import { prismaClient } from '../libs/prismaClient';
 
 export class DeleteAuthorUseCase {
@@ -10,7 +10,7 @@ export class DeleteAuthorUseCase {
     });
 
     if (!book) {
-      throw new AuthorNotExists();
+      throw new AppError('Author not exists.', 404);
     }
   }
 }

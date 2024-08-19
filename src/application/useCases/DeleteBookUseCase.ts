@@ -1,4 +1,4 @@
-import { BookNotExists } from '../errors/BookNotExists';
+import AppError from '@application/errors/AppError';
 import { prismaClient } from '../libs/prismaClient';
 
 export class DeleteBookUseCase {
@@ -10,7 +10,7 @@ export class DeleteBookUseCase {
     });
 
     if (!book) {
-      throw new BookNotExists();
+      throw new AppError('Book not exists.', 404);
     }
   }
 }

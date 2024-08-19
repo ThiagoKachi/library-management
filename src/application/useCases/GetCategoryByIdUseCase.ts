@@ -1,5 +1,5 @@
+import AppError from '@application/errors/AppError';
 import { Category } from '@prisma/client';
-import { CategoryNotExists } from '../errors/CategoryNotExists';
 import { prismaClient } from '../libs/prismaClient';
 
 interface IOutput {
@@ -18,7 +18,7 @@ export class GetCategoryByIdUseCase {
     });
 
     if (!category) {
-      throw new CategoryNotExists();
+      throw new AppError('Category not exists.', 404);
     }
 
     return {

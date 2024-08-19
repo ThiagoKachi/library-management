@@ -5,11 +5,7 @@ export const routeAdapter = (
   action: string
 ) => {
   return async (request: FastifyRequest, reply: FastifyReply) => {
-    try {
-      const { body, statusCode } = await controller[action](request);
-      reply.code(statusCode).send(body);
-    } catch (error) {
-      reply.code(500).send({ error: 'Internal Server Error' });
-    }
+    const { body, statusCode } = await controller[action](request);
+    reply.code(statusCode).send(body);
   };
 };

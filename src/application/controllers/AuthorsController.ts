@@ -3,7 +3,6 @@ import { DeleteAuthorUseCase } from '@application/useCases/DeleteAuthorUseCase';
 import { GetAuthorByNameUseCase } from '@application/useCases/GetAuthorByNameUseCase';
 import { ListAuthorsUseCase } from '@application/useCases/ListAuthorsUseCase';
 import { UpdateAuthorUseCase } from '@application/useCases/UpdateAuthorUseCase';
-import { handleErrors } from '../errors/handleErrors';
 import { IAuthorController } from '../interfaces/IAuthorController';
 import { IRequest, IResponse } from '../interfaces/IController';
 import { createAuthorSchema, updateAuthorSchema } from '../validation/authorSchemas';
@@ -18,73 +17,53 @@ export class AuthorsController implements IAuthorController {
   ) {}
 
   async getAllAuthors(): Promise<IResponse> {
-    try {
-      const authors = await this.listAuthorsUseCase.execute();
+    const authors = await this.listAuthorsUseCase.execute();
 
-      return {
-        statusCode: 200,
-        body: authors,
-      };
-    } catch (erro) {
-      return handleErrors(erro);
-    }
+    return {
+      statusCode: 200,
+      body: authors,
+    };
   }
 
   async getAuthorByName({ params: { name } }: IRequest): Promise<IResponse> {
-    try {
-      const author = await this.getAuthorByNameUseCase.execute(name);
+    const author = await this.getAuthorByNameUseCase.execute(name);
 
-      return {
-        statusCode: 200,
-        body: author,
-      };
-    } catch (erro) {
-      return handleErrors(erro);
-    }
+    return {
+      statusCode: 200,
+      body: author,
+    };
   }
 
   async create({ body }: IRequest): Promise<IResponse> {
-    try {
-      const data = createAuthorSchema.parse(body);
+    const data = createAuthorSchema.parse(body);
 
-      const author = await this.createAuthorUseCase.execute(data);
+    const author = await this.createAuthorUseCase.execute(data);
 
-      return {
-        statusCode: 201,
-        body: author,
-      };
-    } catch (error) {
-      return handleErrors(error);
-    }
+    return {
+      statusCode: 201,
+      body: author,
+    };
   }
 
   async update({ body, params: { id } }: IRequest): Promise<IResponse> {
-    try {
-      const data = updateAuthorSchema.parse(body);
+    const data = updateAuthorSchema.parse(body);
 
-      const author = await this.updateAuthorUseCase.execute(id, {
-        ...data,
-      });
+    const author = await this.updateAuthorUseCase.execute(id, {
+      ...data,
+    });
 
-      return {
-        statusCode: 200,
-        body: author,
-      };
-    } catch (error) {
-      return handleErrors(error);
-    }
+    return {
+      statusCode: 200,
+      body: author,
+    };
   }
 
   async deleteAuthor({ params: { id } }: IRequest): Promise<IResponse> {
-    try {
-      await this.deleteAuthorUseCase.execute(id);
+    await this.deleteAuthorUseCase.execute(id);
 
-      return {
-        statusCode: 204,
-        body: null,
-      };
-    } catch (erro) {
-      return handleErrors(erro);
-    }
+    return {
+      statusCode: 204,
+      body: null,
+    };
   }
 }

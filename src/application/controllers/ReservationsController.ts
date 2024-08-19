@@ -3,7 +3,6 @@ import { ListReservationsUseCase } from '@application/useCases/ListReservationsU
 import { SendEmailUseCase } from '@application/useCases/SendEmailUseCase';
 import { UpdateReservationStatusUseCase } from '@application/useCases/UpdateReservationStatusUseCase';
 import { UpdateReservationUseCase } from '@application/useCases/UpdateReservationUseCase';
-import { handleErrors } from '../errors/handleErrors';
 import { IRequest, IResponse } from '../interfaces/IController';
 import { IReservationController } from '../interfaces/IReservationController';
 import { createReservationSchema, updateReservationSchema } from '../validation/reservationSchemas';
@@ -19,83 +18,63 @@ export class ReservationsController implements IReservationController {
   async getAllReservations({ user }: IRequest): Promise<IResponse> {
     const userId = user.sub;
 
-    try {
-      const reservations = await this.listReservationsUseCase.execute(userId);
+    const reservations = await this.listReservationsUseCase.execute(userId);
 
-      return {
-        statusCode: 200,
-        body: reservations,
-      };
-    } catch (erro) {
-      return handleErrors(erro);
-    }
+    return {
+      statusCode: 200,
+      body: reservations,
+    };
   }
 
   async create({ body, user }: IRequest): Promise<IResponse> {
     const userId = user.sub;
 
-    try {
-      const data = createReservationSchema.parse(body);
+    const data = createReservationSchema.parse(body);
 
-      const reservation = await this.createReservarionUseCase.execute(userId, {
-        ...data,
-      });
+    const reservation = await this.createReservarionUseCase.execute(userId, {
+      ...data,
+    });
 
-      return {
-        statusCode: 201,
-        body: reservation,
-      };
-    } catch (error) {
-      return handleErrors(error);
-    }
+    return {
+      statusCode: 201,
+      body: reservation,
+    };
   }
 
   async update({ body, params: { id }, user }: IRequest): Promise<IResponse> {
     const userId = user.sub;
 
-    try {
-      const data = updateReservationSchema.parse(body);
+    const data = updateReservationSchema.parse(body);
 
-      const reservation = await this.updateReservationUseCase.execute(userId, {
-        reservationId: Number(id),
-        returnedIn: data.returnedIn,
-      });
+    const reservation = await this.updateReservationUseCase.execute(userId, {
+      reservationId: Number(id),
+      returnedIn: data.returnedIn,
+    });
 
-      return {
-        statusCode: 200,
-        body: reservation,
-      };
-    } catch (error) {
-      return handleErrors(error);
-    }
+    return {
+      statusCode: 200,
+      body: reservation,
+    };
   }
 
   async updateReservationStatus({ body, params: { id } }: IRequest): Promise<IResponse> {
-    try {
-      const reservation = await this.updateReservationStatusUseCase.execute({
-        reservationId: Number(id),
-        bookId: body.bookId,
-      });
+    const reservation = await this.updateReservationStatusUseCase.execute({
+      reservationId: Number(id),
+      bookId: body.bookId,
+    });
 
-      return {
-        statusCode: 200,
-        body: reservation,
-      };
-    } catch (erro) {
-      return handleErrors(erro);
-    }
+    return {
+      statusCode: 200,
+      body: reservation,
+    };
   }
 
   async sendEmail({ user }: IRequest): Promise<IResponse> {
-    try {
-      await this.sendEmailUseCase.execute({ userId: user.sub });
+    await this.sendEmailUseCase.execute({ userId: user.sub });
 
-      return {
-        statusCode: 200,
-        body: null,
-      };
-    } catch (erro) {
-      return handleErrors(erro);
-    }
+    return {
+      statusCode: 200,
+      body: null,
+    };
   }
 }

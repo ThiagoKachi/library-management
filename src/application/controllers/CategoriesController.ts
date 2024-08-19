@@ -3,7 +3,6 @@ import { DeleteCategoryUseCase } from '@application/useCases/DeleteCategoryUseCa
 import { GetCategoryByIdUseCase } from '@application/useCases/GetCategoryByIdUseCase';
 import { ListCategoriesUseCase } from '@application/useCases/ListCategoriesUseCase';
 import { UpdateCategoryUseCase } from '@application/useCases/UpdateCategoryUseCase';
-import { handleErrors } from '../errors/handleErrors';
 import { ICategoryController } from '../interfaces/ICategoryController';
 import { IRequest, IResponse } from '../interfaces/IController';
 import { createCategorySchema, updateCategorySchema } from '../validation/categorySchemas';
@@ -18,73 +17,53 @@ export class CategoriesController implements ICategoryController {
   ) {}
 
   async getAllCategories(): Promise<IResponse> {
-    try {
-      const categories = await this.listCategoriesUseCase.execute();
+    const categories = await this.listCategoriesUseCase.execute();
 
-      return {
-        statusCode: 200,
-        body: categories,
-      };
-    } catch (erro) {
-      return handleErrors(erro);
-    }
+    return {
+      statusCode: 200,
+      body: categories,
+    };
   }
 
   async getCategoryById({ params: { id } }: IRequest): Promise<IResponse> {
-    try {
-      const category = await this.getCategoryByIdUseCase.execute(id);
+    const category = await this.getCategoryByIdUseCase.execute(id);
 
-      return {
-        statusCode: 200,
-        body: category,
-      };
-    } catch (erro) {
-      return handleErrors(erro);
-    }
+    return {
+      statusCode: 200,
+      body: category,
+    };
   }
 
   async create({ body }: IRequest): Promise<IResponse> {
-    try {
-      const data = createCategorySchema.parse(body);
+    const data = createCategorySchema.parse(body);
 
-      const category = await this.createCategoryUseCase.execute(data);
+    const category = await this.createCategoryUseCase.execute(data);
 
-      return {
-        statusCode: 201,
-        body: category,
-      };
-    } catch (error) {
-      return handleErrors(error);
-    }
+    return {
+      statusCode: 201,
+      body: category,
+    };
   }
 
   async update({ body, params: { id } }: IRequest): Promise<IResponse> {
-    try {
-      const data = updateCategorySchema.parse(body);
+    const data = updateCategorySchema.parse(body);
 
-      const category = await this.updateCategoryUseCase.execute(id, {
-        ...data,
-      });
+    const category = await this.updateCategoryUseCase.execute(id, {
+      ...data,
+    });
 
-      return {
-        statusCode: 200,
-        body: category,
-      };
-    } catch (error) {
-      return handleErrors(error);
-    }
+    return {
+      statusCode: 200,
+      body: category,
+    };
   }
 
   async deleteCategory({ params: { id } }: IRequest): Promise<IResponse> {
-    try {
-      await this.deleteCategoryUseCase.execute(id);
+    await this.deleteCategoryUseCase.execute(id);
 
-      return {
-        statusCode: 204,
-        body: null,
-      };
-    } catch (erro) {
-      return handleErrors(erro);
-    }
+    return {
+      statusCode: 204,
+      body: null,
+    };
   }
 }
